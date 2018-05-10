@@ -1,0 +1,91 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet"  href="css/bootstrap-4.0.0-dist/css/bootstrap.min.css"></link>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    <title>Edit Post</title>
+  </head>
+  <body>
+    <form id="newPostForm" class="" action="index.html">
+      <div class="container">
+        <p></p>
+        <p></p>
+        <div class="row">
+          <div class="col-sm">
+            <label>Title:</label>
+            <input id="title" type="text" name="" value="">
+          </div>
+        </div>
+        <p></p>
+        <p></p>
+        <div class="row">
+          <div class="col-sm">
+            <label>Content:</label>
+            <textarea id="summernote" name="editordata"></textarea>
+          </div>
+        </div>
+        <input id="author" type="hidden" name="" value="">
+      </div>
+        <p></p>
+        <p></p>
+        <div class="row">
+          <div class="col-sm">
+            <label>Image:</label>  <input id="image" type="text" name="" value="">
+          </div>
+        </div>
+        <p></p>
+        <p></p>
+        <div class="row">
+          <div class="col-sm">
+            <a class="btn btn-primary" href="javascript:submit();">Post</a>
+          </div>
+        </div>
+    </div>
+    </form>
+  </body>
+</html>
+<script>
+var postID;
+$(document).ready(function() {
+  var query = window.location.search.substring(1);
+  postID = parseFloat(query.replace('post_id=', ''));
+  $('#author').val(sessionStorage.getItem("userID"));
+  $.getJSON('http://localhost:3000/posts/' + postID, function(data) {
+      $('#title').val(data.title);
+      $('#summernote').html(data['content']);
+      $('#image').val(data.image);
+      $('#summernote').summernote();
+  });
+});
+
+function submit(){
+  var title = $('#title').val();
+  var content = $('#summernote').val();
+  var author = $('#author').val();
+  var image = $('#image').val();
+
+  var contentObj = {
+    "id": postID,
+    "title": title,
+    "content": content,
+    "author": author,
+    "image": image
+  };
+
+  $.ajax({
+    type: "PUT",
+    url: 'http://localhost:3000/posts/' + postID,
+    data: contentObj,
+    dataType: 'json'
+  });
+  alert('You have successfully updated this post.');
+  window.location = "archive.html";
+  $.getJSON('http://localhost:3000/posts', function(data) {
+      
+  });
+}
+</script>

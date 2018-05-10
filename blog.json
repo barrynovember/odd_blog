@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "first_name": "Barry",
+      "last_name": "November",
+      "email": "barrynovember1@gmail.com",
+      "password": "test123"
+    },
+    {
+      "id": "2",
+      "first_name": "Tom",
+      "email": "tom@thumb",
+      "password": "tom"
+    },
+    {
+      "id": "3",
+      "first_name": "Jerry",
+      "email": "jerry@mouse",
+      "password": "jerry"
+    },
+    {
+      "id": "4",
+      "first_name": "Bugs",
+      "email": "bugs@bunny.com",
+      "password": "bugs"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "title": "Toms Post",
+      "content": "<p><b>Tom is a fat cat.</b></p><p><b style=\"font-size: 1rem;\"><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small;\">The humans I live with are so mean, they buy loads of&nbsp;</span><span style=\"color: rgb(106, 106, 106); font-family: arial, sans-serif; font-size: small;\">cat</span><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small;\">&nbsp;food and then they don't let me eat it all at once, they always tell me that they're shopping early, and they even say I'm the fattest&nbsp;</span><span style=\"color: rgb(106, 106, 106); font-family: arial, sans-serif; font-size: small;\">cat</span><span style=\"color: rgb(84, 84, 84); font-family: arial, sans-serif; font-size: small;\">&nbsp;they've ever seen, how mean is that? They're taking me to the vet tomorrow and they'll see that I'm&nbsp;...</span></b></p>",
+      "author": "",
+      "image": "https://img.memecdn.com/fat-cat-is-hungry_o_3295139.webp"
+    },
+    {
+      "id": "2",
+      "title": "Bugs Post",
+      "content": "<p><b>Laid back!</b></p>",
+      "author": "",
+      "image": "https://vignette.wikia.nocookie.net/looneytunes/images/0/0b/Bugs-Bunny-Whats-Up-Doc-Cover.png/revision/latest?cb=20130209211559"
+    },
+    {
+      "id": "3",
+      "title": "Jerrys Post",
+      "content": "<b>What's the matter? Cat got your tongue??</b>",
+      "author": "",
+      "image": "http://secretvortex.com/cartoons/tj-cousin.jpg"
+    }
+  ],
+  "comments": []
+}

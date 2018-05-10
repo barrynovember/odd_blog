@@ -1,0 +1,88 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet"  href="css/bootstrap-4.0.0-dist/css/bootstrap.min.css"></link>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+    <title>New Post</title>
+  </head>
+  <body>
+    <form id="newPostForm" class="" action="index.html">
+      <div class="content">
+        <p></p>
+      </div>
+      <div class="container">
+        <p></p>
+        <div class="row">
+          <div class="col-sm">
+            <label>Title:</label><p></p>
+            <input id="title" type="text" name="" value="">
+          </div>
+        </div>
+        <p></p>
+        <div class="row">
+          <div class="col-sm">
+            <label>Content:</label><p></p>
+            <textarea id="summernote" name="editordata"></textarea>
+          </div>
+        </div>
+        <p></p>
+        <input id="author" type="hidden" name="" value="">
+      </div>
+        <div class="row">
+          <div class="col-sm">
+            <label>Image:</label><p></p>  <input id="image" type="text" name="" value="">
+          </div>
+        </div>
+        <p></p>
+        <div class="row">
+          <div class="col-sm">
+            <a class="btn btn-primary" href="javascript:submit();">Post</a>
+          </div>
+        </div>
+    </div>
+    </form>
+  </body>
+</html>
+<script>
+  var postCnt = 0;
+$(document).ready(function() {
+  $('#summernote').summernote();
+  $('#author').val(sessionStorage.getItem("userID"));
+
+  $.getJSON('http://localhost:3000/posts', function(data) {
+    postCnt = (data.length);
+  });
+
+});
+
+function submit(){
+  var title = $('#title').val();
+  var content = $('#summernote').val();
+  var author = $('#author').val();
+  var image = $('#image').val();
+
+  var contentObj = {
+    "id": parseFloat(postCnt + 1),
+    "title": title,
+    "content": content,
+    "author": author,
+    "image": image
+  };
+
+  $.ajax({
+    type: "POST",
+    url: 'http://localhost:3000/posts',
+    data: contentObj,
+    dataType: 'json',
+    success: function( resp ) {
+      alert('You have successfully posted.');
+      window.location = "archive.html";
+    }
+  });
+
+}
+</script>

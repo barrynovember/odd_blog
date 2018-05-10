@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet"  href="css/bootstrap-4.0.0-dist/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Archive</title>
+  </head>
+  <body>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="archive.html">Archive</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="new_post.html">New Post</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="login.html">Login</a>
+      </li>
+    </ul>
+  <div class="container">
+    <p></p>
+    <h1>One Odd Blog!</h1>
+    <p></p>
+  </div>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+
+  $.getJSON('http://localhost:3000/posts', function(data) {
+      $.each(data, function(i,v){
+        var _HTML = '<div class="row">';
+          _HTML += '<div class="col-sm">';
+            _HTML += '<img width="500px" src="' + data[i]['image'] +'"/>' + data[i]['title'];
+          _HTML += '</div>';
+        _HTML += '</div>';
+        _HTML += '<div class="row">';
+         _HTML += '<div class="col-sm">';
+           _HTML += data[i]['content'];
+         _HTML += '</div>';
+       _HTML += '</div>';
+       _HTML += '<div class="row">';
+        _HTML += '<div class="col-sm">';
+          _HTML += '<a href="edit_post.html?post_id=' + data[i]['id'] + '">Edit</a>';
+        _HTML += '</div>';
+      _HTML += '</div>';
+        $('.container').append(_HTML);
+      });
+  });
+});
+</script>

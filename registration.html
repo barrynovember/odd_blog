@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet"  href="css/bootstrap-4.0.0-dist/css/bootstrap.min.css"></link>
+    <title>Registration</title>
+  </head>
+  <body>
+    <div class="container">
+      <form id="registrationForm" class="" action="index.html">
+        First Name: <input id="firstName" type="text" name="" value="">
+        Surame: <input id="surname" type="text" name="" value="">
+        E Mail: <input id="email" type="text" name="" value="">
+        Password: <input id="password" type="password" name="" value="">
+        <a class="btn btn-primary" href="javascript:checkUsers();">Register</a>
+      </form>
+    </div>
+
+  </body>
+</html>
+<script>
+var currentUsers;
+$(document).ready(function() {
+
+  $.getJSON('http://localhost:3000/users', function(data) {
+      currentUsers = data;
+  });
+});
+
+function checkUsers(){
+  var email = $('#email').val();
+  var password = $('#password').val();
+  var firstName = $('#firstName').val();
+  var lastName = $('#lastName').val();
+  var userFound = false;
+  var userID;
+  var userCnt = 0;
+  $.each(currentUsers, function(i,v){
+    userCnt++;
+    if ($.trim(email) == currentUsers[i]['email']){
+      userFound = true;
+    }
+  });
+
+  if (userFound == true){
+    alert('User/Email already exists.');
+  } else {
+
+    userObj = {
+      "id": parseFloat(userCnt + 1),
+      "first_name": firstName,
+      "last_name": lastName,
+      "email": email,
+      "password": password
+    }
+
+    $.ajax({
+      type: "POST",
+      url: 'http://localhost:3000/users',
+      data: userObj,
+      dataType: 'json'
+    });
+    alert('You have successfully registered.');
+    window.location = "login.html";
+    $.getJSON('http://localhost:3000/users', function(data) {
+
+    });
+  }
+}
+</script>

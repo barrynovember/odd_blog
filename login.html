@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet"  href="css/bootstrap-4.0.0-dist/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Login</title>
+  </head>
+  <body>
+
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="archive.html">Archive</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="login.html">Login</a>
+        </li>
+      </ul>
+    <div class="container">
+      <p></p>
+      <form id="loginForm" class="" action="index.html">
+        E Mail:   <input id="email" type="text" name="" value="">
+        Password: <input id="password" type="password" name="" value="">
+        <a class="btn btn-primary" href="javascript:checkUsers();">Login</a>
+      </form>
+      <div class="row">
+        <div class="col-sm"><a class="nav-link" href="registration.html">Register</a></div>
+      </div>
+    </div>
+
+  </body>
+</html>
+<script>
+var currentUsers;
+$(document).ready(function() {
+
+  $.getJSON('http://localhost:3000/users', function(data) {
+      currentUsers = data;
+  });
+});
+
+function checkUsers(){
+  var email = $('#email').val();
+  var password = $('#password').val();
+  var userFound = false;
+  var userID;
+  $.each(currentUsers, function(i,v){
+    if ($.trim(email) == currentUsers[i]['email'] && $.trim(password) == currentUsers[i]['password']){
+      userFound = true;
+      userID = currentUsers[i]['id']
+    }
+  });
+
+  if (userFound == false){
+    alert('User does not exist');
+  } else {
+    alert('You have successfully registered');
+    sessionStorage.setItem("userID", userID);
+  }
+}
+</script>
